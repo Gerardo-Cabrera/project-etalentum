@@ -11,7 +11,7 @@ if (isset($_SESSION['loggedin'])) {
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Login</title>
+		<title> Login - Yell Ducal </title>
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
 		<link href="public/css/styles.css" rel="stylesheet" type="text/css">
 	</head>
