@@ -8,7 +8,7 @@ if (!isset($_SESSION['loggedin'])) {
 	exit;
 }
 
-$datos = datosUsuarioLogueado($_SESSION['name']);
+$datos = datosUsuarioLogueado($_SESSION['id']);
 $usuario = $datos['usuario'];
 ?>
 
@@ -16,13 +16,14 @@ $usuario = $datos['usuario'];
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Página de Inicio</title>
+		<title> Inicio - Yell Ducal </title>
 		<link href="../public/css/styles.css" rel="stylesheet" type="text/css">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
 	</head>
 	<body class="loggedin">
 		<nav class="navtop">
 			<div>
+				<h1> Project Usuarios Yell Ducal</h1>
 				<a href="perfil.php"><i class="fas fa-user-circle"></i>Perfil</a>
 				<a href="logout.php"><i class="fas fa-sign-out-alt"></i>Cerrar Sesión</a>
 			</div>

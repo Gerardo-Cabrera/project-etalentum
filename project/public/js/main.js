@@ -1,7 +1,7 @@
 $(function() {
 	$("body").keypress(function(event) {
 		if (event.keyCode == 13) {
-			$("#ingresar, #registrar, #modificar").click();
+			$("#ingresar, #registrar, #modificar, #guardar-perfil").click();
 		}
 	});
 
@@ -264,20 +264,23 @@ function removerErrores() {
 
 function registrarUsuario() {
 	var logueado = $("#logueado").val();
-
-	if (logueado == "true") {
-		var url = "registrar.php";
-	} else {
-		var url = "application/registrar.php";
-	}
-
-	var datos = {
+	var datosRegistrar = {
 		usuario: $("#usuario").val(),
 		password: $("#password").val(),
 		email: $("#email").val()
 	};
+	var datosEnviar = {
+		funcion: "registrarUsuario",
+		datos: datosRegistrar
+	};
 
-	$.post(url, {data: datos}).done(function(data) {
+	if (logueado == "true") {
+		var url = "usuarios.php";
+	} else {
+		var url = "application/usuarios.php";
+	}
+
+	$.post(url, {data: datosEnviar}).done(function(data) {
 		data = JSON.parse(data);
 
 		if (data.estatus == 1) {
@@ -330,13 +333,17 @@ function registrarUsuario() {
 }
 
 function login() {
-	var url = "application/autenticar.php";
-	var datos = {
+	var url = "application/usuarios.php";
+	var datosLogin = {
 		usuario: $("#usuario-login").val(),
-		password: $("#password-login").val(),
+		password: $("#password-login").val()
+	};
+	var datosEnviar = {
+		funcion: "login",
+		datos: datosLogin
 	};
 
-	$.post(url, {data: datos}).done(function(data) {
+	$.post(url, {data: datosEnviar}).done(function(data) {
 		data = JSON.parse(data);
 
 		if (data.estatus == 1) {
@@ -357,17 +364,19 @@ function login() {
 }
 
 function modificarUsuario() {
-	var url = "modificar.php";
-
-	var datos = {
+	var url = "usuarios.php";
+	var datosModificar = {
 		idUsuario: $("#idUsuario").val(),
 		usuario: $("#usuario").val(),
 		password: $("#password").val(),
 		email: $("#email").val()
+	}
+	var datosEnviar = {
+		funcion: "modificarUsuario",
+		datos: datosModificar		
 	};
-	console.log(datos);
 
-	$.post(url, {func: 'prueba', data: datos}).done(function(data) {
+	$.post(url, {data: datosEnviar}).done(function(data) {
 		data = JSON.parse(data);
 
 		if (data.estatus == 1) {
@@ -400,18 +409,25 @@ function modificarUsuario() {
 
 function eliminarUsuario(datos) {
 	$("#myModal").show();
-	var id = datos.id;
+	var idUsuario = datos.id;
 	var usuario = datos.usuario;
 	var mensaje = "¿Esta seguro que desea eliminar al usuario: " + usuario + "?";
 	$(".mensaje").append(mensaje);
 
 	$("#aceptar").on("click", function() {
-		var url = "eliminarUsuario.php";
+		var url = "usuarios.php";
+		var datosEnviar = {
+			funcion: "eliminarUsuario",
+			datos: {
+				id: idUsuario
+			}
+		};
 
-		$.post(url, {id: id}).done(function(data) {
+		$.post(url, {data: datosEnviar}).done(function(data) {
 			data = JSON.parse(data);
 
 			if (data.estatus == 1) {
+				$("#mensaje-eliminar").contents().remove();
 				$("#mensaje-eliminar").append(data.mensaje).addClass("alert-success");
 				$("#mensaje-eliminar").show();
 				setTimeout(function() {
@@ -419,6 +435,7 @@ function eliminarUsuario(datos) {
 					$("#mensaje-eliminar").contents().remove();
 				}, 2000);
 			} else {
+				$("#mensaje-eliminar").contents().remove();
 				$("#mensaje-eliminar").append(data.mensaje).addClass("alert-danger");
 				$("#mensaje-eliminar").show();
 				setTimeout(function() {
@@ -428,7 +445,7 @@ function eliminarUsuario(datos) {
 			}
 		});
 
-		$("#" + id).remove();
+		$("#" + idUsuario).remove();
 		$("#myModal").hide();
 		$(".mensaje").contents().remove();
 	});

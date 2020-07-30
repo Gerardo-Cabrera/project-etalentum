@@ -244,6 +244,12 @@ body.loggedin {
   left: 446px;
 }
 
+.error-usuario-perfil {
+  position: absolute;
+  top: 206px;
+  left: 442px;
+}
+
 .error-password {
   position: absolute;
   top: 314px;
@@ -256,6 +262,12 @@ body.loggedin {
   left: 446px;
 }
 
+.error-password-perfil {
+  position: absolute;
+  top: 276px;
+  left: 442px;
+}
+
 .error-email {
   position: absolute;
   top: 384px;
@@ -266,6 +278,12 @@ body.loggedin {
   position: absolute;
   top: 336px;
   left: 446px;
+}
+
+.error-email-perfil {
+  position: absolute;
+  top: 346px;
+  left: 442px;
 }
 
 .alert {
