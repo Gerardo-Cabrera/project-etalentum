@@ -291,6 +291,9 @@ function registrarUsuario() {
 
 			if (logueado == "false") {
 				var pagina = "index.php";
+				$("#usuario").val("");
+				$("#password").val("");
+				$("#email").val("");
 
 				setTimeout(function() {
 					window.location.replace(pagina);

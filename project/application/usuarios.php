@@ -11,15 +11,12 @@ if (isset($_POST['data']['funcion']) && isset($_POST['data']['datos'])) {
 		$data = $_POST['data']['datos']['id'];
 	}
 
-	$datos = consulta();
+	$datos = consulta($connection, $funcion, $data);
 	echo json_encode($datos);
 }
 
-function consulta() {
-	$consulta = $GLOBALS['connection'];
-	$funcion = $GLOBALS['funcion'];
-	$data = $GLOBALS['data'];
-	$result = $consulta->$funcion($data);
+function consulta($connection, $funcion, $data) {
+	$result = $connection->$funcion($data);
 	return $result;
 }
 
